@@ -1,17 +1,17 @@
-/* Use ARDC Proxima Nova */
-@import url("https://use.typekit.net/nlr0joz.css");
+/* Use ARDC Figtree Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .hidden {
     display: none;
 }
 
 body {
-    font-family: proxima-nova, sans-serif;
+    font-family: Figtree, sans-serif;
     padding-top: 80px;
 }
 
 form {
-    font-family: proxima-nova, sans-serif;
+    font-family: Figtree, sans-serif;
 }
 
 a {
@@ -82,7 +82,7 @@ p > a:hover {
     color: #000;
     text-transform: uppercase;
     font-weight: 600;
-    font-family: proxima-nova, sans-serif;
+    font-family: Figtree, sans-serif;
     letter-spacing: 1px;
     text-shadow:  none;
     text-decoration: none;
@@ -117,7 +117,7 @@ p > a:hover {
 
 .h1, .h2, .h3, .h4, .h5, .h6,
 h1, h2, h3, h4, h5, h6 {
-  font-family: proxima-nova, sans-serif;
+  font-family: Figtree, sans-serif;
   font-weight: 600;
   font-style: normal;
 }
@@ -169,7 +169,7 @@ h4 {
 }
 
 #build-progress {
-    font-family: proxima-nova, sans-serif;
+    font-family: Figtree, sans-serif;
     font-size: 16px;
     height: 28px;
     text-shadow: black 1px 1px 1px;
@@ -291,7 +291,7 @@ h4 {
     height: 40px;
     padding: 2px 9px;
     font-weight: 800;
-    font-family: proxima-nova, sans-serif;
+    font-family: Figtree, sans-serif;
 }
 
 .point-container {
