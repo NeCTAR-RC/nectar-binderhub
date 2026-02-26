@@ -1,0 +1,73 @@
+{% if enable_loader_timeout %}
+<script>
+(function() {
+  var hubUrl = "{{ JUPYTERHUB_URL }}";
+  var timeoutMs = 30000;
+  var helpHtml = '<p class="ardc-timeout-help text-center mt-2">'
+    + '<i class="bi bi-exclamation-triangle text-danger"></i> '
+    + 'Taking too long? Do you already have a server running? '
+    + '<a href="' + hubUrl + '/hub/home">Check the server page</a>, '
+    + 'or try <a href="#" onclick="location.reload();return false">reloading</a>.</p>';
+
+  var activeTimer = null;
+  var activeObserver = null;
+
+  function injectHelp(container) {
+    if (container.querySelector(".ardc-timeout-help")) return;
+    container.insertAdjacentHTML("beforeend", helpHtml);
+  }
+
+  function cleanup() {
+    if (activeTimer) { clearTimeout(activeTimer); activeTimer = null; }
+    if (activeObserver) { activeObserver.disconnect(); activeObserver = null; }
+  }
+
+  function watch(loader) {
+    cleanup();
+    var container = loader.parentElement;
+
+    activeTimer = setTimeout(function() {
+      if (!loader.classList.contains("error")) injectHelp(container);
+    }, timeoutMs);
+
+    activeObserver = new MutationObserver(function() {
+      if (loader.classList.contains("error")) {
+        clearTimeout(activeTimer);
+        activeTimer = null;
+        injectHelp(container);
+        activeObserver.disconnect();
+        activeObserver = null;
+      }
+    });
+    activeObserver.observe(loader, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  var lastLoader = null;
+  var root = document.getElementById("root");
+  new MutationObserver(function() {
+    var loader = document.getElementById("loader");
+    if (loader && loader !== lastLoader) {
+      lastLoader = loader;
+      watch(loader);
+    }
+  }).observe(root, { childList: true, subtree: true });
+})();
+</script>
+{% endif %}
+
+{% if google_analytics_code %}
+<script>
+  if (navigator.doNotTrack != "1" &&
+      window.doNotTrack != "1" &&
+      navigator.msDoNotTrack != "1") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '{{ google_analytics_code }}', '{{ google_analytics_domain }}',
+       {'storage': 'none'});
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  }
+</script>
+{% endif %}
