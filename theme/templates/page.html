@@ -47,6 +47,12 @@
 
 {% include "partials/footer.html" %}
 
+{# Shared Nectar survey invitation (nectar-survey); its config decides when a
+   survey is open. Every launcher page already requires a hub login, so this
+   reaches logged-in users only. #}
+<script type="module" src="https://survey.rc.nectar.org.au/nectar-survey.js"></script>
+<nectar-survey service="ARDC BinderHub Service"></nectar-survey>
+
 <script src="{{static_url("dist/bundle.js")}}"></script>
 
 {% if extra_footer_scripts %}
